@@ -1,0 +1,7 @@
+SELECT 
+    agent_username, COUNT(*) AS nbre
+FROM
+    caris_db.dreams_surveys_data dsd
+WHERE
+    dsd.created_ad >= '2019-08-31'
+GROUP BY agent_username
