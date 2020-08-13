@@ -1,0 +1,28 @@
+SELECT 
+    p.patient_code as code,
+    b.first_name,
+    b.last_name,
+    b.dob,
+    dh.name AS hub_name,
+    dh.address AS hub_address,
+    dh.id as id_hub,
+    dg.name AS group_name,
+    dg.id as id_group,
+    dgs.date AS session_date,
+    ldt.name AS topic_name,
+	dgs.topic as id_topic,
+    ds.value as presence
+FROM
+    dream_group_attendance ds
+        LEFT JOIN
+    dream_group_session dgs ON dgs.id = ds.id_group_session
+        LEFT JOIN
+    dream_group dg ON dg.id = dgs.id_group
+        LEFT JOIN
+    dream_hub dh ON dh.id = dg.id_dream_hub
+        LEFT JOIN
+    beneficiary b ON b.id_patient = ds.id_patient
+        LEFT JOIN
+    lookup_dreams_topic ldt ON ldt.id = dgs.topic
+        LEFT JOIN
+    patient p ON p.id = ds.id_patient
